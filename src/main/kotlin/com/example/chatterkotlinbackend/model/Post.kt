@@ -1,11 +1,9 @@
 package com.example.chatterkotlinbackend.model
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import jakarta.persistence.*
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Entity
@@ -20,10 +18,12 @@ data class Post(
     @Column(name = "image") var image: String? = null,
 
     @Column(name = "created_at")
-    @JsonSerialize(using = LocalDateTimeSerializer::class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "updated_at") var updatedAt: LocalDateTime? = null,
+    @Column(name = "updated_at")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    var updatedAt: LocalDateTime? = null,
 
     @Column(name = "published") var published: Boolean? = null,
 
@@ -34,6 +34,6 @@ data class Post(
 
 ){
     override fun toString() : String {
-        return ( "Post(id=$id, title=$title, body=$body, author=$author)");
+        return ( "Post(id=$id, title=$title, body=$body, author=$author)")
     }
 }
