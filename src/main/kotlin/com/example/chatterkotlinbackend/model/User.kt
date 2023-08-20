@@ -22,12 +22,12 @@ data class User (
     @Column(name = "lastname")
     var lastname: String? = null,
 
-//    @OneToMany(
-//        mappedBy = "author",
-//        fetch = FetchType.LAZY,
-//        cascade = [CascadeType.ALL],
-//    )
-//    var posts: MutableList<Post>? = null,
+    @OneToMany(
+        mappedBy = "author",
+        fetch = FetchType.LAZY,
+        cascade = [CascadeType.ALL],
+    )
+    var posts: MutableList<Post>? = null,
 //
 //
 //    @OneToMany(
@@ -37,4 +37,8 @@ data class User (
 //    )
 //    var comments: MutableList<Comment>? = null
 
-)
+) {
+    override fun toString(): String {
+        return ("User(id=$id, title=$username, firstname=$firstname, lastname=$lastname, email=$email)");
+    }
+}
