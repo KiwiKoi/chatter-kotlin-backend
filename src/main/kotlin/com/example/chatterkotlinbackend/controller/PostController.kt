@@ -78,4 +78,22 @@ class PostController {
             ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+
+    @DeleteMapping("/{id}")
+    fun deletePost(
+        @PathVariable id: String
+    ): ResponseEntity<Unit> {
+        return try {
+            val post = postRepository.findById(id)
+            if (post.isPresent) {
+                postRepository.delete(post.get())
+                ResponseEntity(HttpStatus.NO_CONTENT)
+            } else {
+                ResponseEntity(HttpStatus.NOT_FOUND)
+            }
+
+        } catch (e: Exception){
+            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
 }
