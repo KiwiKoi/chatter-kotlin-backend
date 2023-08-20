@@ -39,6 +39,6 @@ data class User (
 
 ) {
     override fun toString(): String {
-        return ("User(id=$id, title=$username, firstname=$firstname, lastname=$lastname, email=$email)")
+        return ("User(id=$id, username=$username, firstname=$firstname, lastname=$lastname, email=$email)")
     }
 }

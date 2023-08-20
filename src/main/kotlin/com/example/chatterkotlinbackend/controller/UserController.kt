@@ -39,4 +39,37 @@ class UserController {
             ResponseEntity<User>(null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+
+    @PutMapping("/{userId}")
+    fun updateUser(
+        @PathVariable userId: String,
+        @RequestBody updatedUser: User,
+    ): ResponseEntity<User> {
+        return try {
+            val existingUser = userRepository.findById(userId)
+            if (existingUser.isPresent) {
+                val userToUpdate = existingUser.get()
+
+                if(userToUpdate.email != updatedUser.email){
+                    userToUpdate.email = updatedUser.email
+                }
+                if(userToUpdate.username != updatedUser.username){
+                    userToUpdate.username = updatedUser.username
+                }
+                if(userToUpdate.firstname != updatedUser.firstname){
+                    userToUpdate.firstname = updatedUser.firstname
+                }
+                if(userToUpdate.lastname != updatedUser.lastname){
+                    userToUpdate.lastname = updatedUser.lastname
+                }
+                val updatedUserEntity = userRepository.save(userToUpdate)
+                ResponseEntity(updatedUserEntity, HttpStatus.OK)
+            } else {
+                ResponseEntity(HttpStatus.NOT_FOUND)
+            }
+        } catch (e: Exception) {
+            ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+
+    }
 }
