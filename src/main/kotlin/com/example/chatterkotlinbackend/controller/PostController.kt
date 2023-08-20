@@ -87,13 +87,13 @@ class PostController {
             val post = postRepository.findById(id)
             if (post.isPresent) {
                 postRepository.delete(post.get())
-                ResponseEntity(HttpStatus.NO_CONTENT)
+                ResponseEntity(null, HttpStatus.NO_CONTENT)
             } else {
-                ResponseEntity(HttpStatus.NOT_FOUND)
+                ResponseEntity(null, HttpStatus.NOT_FOUND)
             }
 
         } catch (e: Exception){
-            ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+            ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }

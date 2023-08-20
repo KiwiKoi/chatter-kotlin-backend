@@ -35,7 +35,7 @@ data class Post(
 
     @JsonIgnoreProperties("posts") @ManyToOne(
         fetch = FetchType.EAGER,
-        cascade = [CascadeType.ALL]
+        cascade = [CascadeType.PERSIST, CascadeType.MERGE]
     ) @JoinColumn(name = "user_id", referencedColumnName = "id") var author: User? = null
 
 ){

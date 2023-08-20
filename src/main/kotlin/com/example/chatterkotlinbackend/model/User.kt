@@ -25,7 +25,7 @@ data class User (
     @OneToMany(
         mappedBy = "author",
         fetch = FetchType.LAZY,
-        cascade = [CascadeType.ALL],
+        cascade = [CascadeType.PERSIST, CascadeType.MERGE],
     )
     var posts: MutableList<Post>? = null,
 //
