@@ -37,10 +37,10 @@ class PostController {
     @PostMapping
     fun createPost(
         @RequestBody post: Post,
-        @RequestParam user_id: String
+        @RequestParam userId: String
     ): ResponseEntity<Post> {
         return try {
-            val author: Optional<User> = userRepository.findById(user_id)
+            val author: Optional<User> = userRepository.findById(userId)
             if (author.isEmpty) {
                 return ResponseEntity(null, HttpStatus.BAD_REQUEST)
             }
