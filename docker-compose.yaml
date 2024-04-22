@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: daniel
+      POSTGRES_PASSWORD: daniel
+      POSTGRES_DB: chatter_db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
