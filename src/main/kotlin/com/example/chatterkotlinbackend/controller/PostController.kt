@@ -96,4 +96,37 @@ class PostController {
             ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
+
+    @PutMapping("/{id}")
+    fun updatePost(
+        @PathVariable id: String,
+        @RequestBody updatedPost: Post
+    ): ResponseEntity<Post> {
+        return try {
+            val existingPost = postRepository.findById(id)
+            println("ID: $id")
+            println("EXISTING POST: $existingPost")
+            println("UPDATED POST: $updatedPost")
+            if(existingPost.isPresent){
+                val postToUpdate = existingPost.get()
+
+                if(postToUpdate.title != updatedPost.title){
+                    postToUpdate.title = updatedPost.title
+                }
+                if(postToUpdate.body != updatedPost.body){
+                    postToUpdate.body = updatedPost.body
+                }
+                if(postToUpdate.image != updatedPost.image){
+                    postToUpdate.image = updatedPost.image
+                }
+                val updatedPostEntity = postRepository.save(postToUpdate)
+                ResponseEntity(updatedPostEntity, HttpStatus.OK)
+
+            } else{
+                ResponseEntity(HttpStatus.NOT_FOUND)
+            }
+        } catch (e: Exception) {
+            ResponseEntity(null, HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
 }
